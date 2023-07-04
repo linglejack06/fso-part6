@@ -1,5 +1,5 @@
-import noteReducer from './noteReducer';
 import deepFreeze from 'deep-freeze';
+import noteReducer from './noteReducer';
 
 describe('noteReducer', () => {
   it('returns new state with action NEW_NOTE', () => {
@@ -10,8 +10,8 @@ describe('noteReducer', () => {
         content: 'the app state is in redux store',
         important: true,
         id: 1,
-      }
-    }
+      },
+    };
     deepFreeze(state);
     const newState = noteReducer(state, action);
 
@@ -23,20 +23,20 @@ describe('noteReducer', () => {
       {
         content: 'the app state is in redux store',
         important: true,
-        id: 1
+        id: 1,
       },
       {
         content: 'state changes are made with actions',
         important: false,
-        id: 2
+        id: 2,
       },
-    ]
+    ];
     const action = {
       type: 'TOGGLE_IMPORTANCE',
       payload: {
-        id: 2
-      }
-    }
+        id: 2,
+      },
+    };
     deepFreeze(state);
 
     const newState = noteReducer(state, action);
@@ -45,6 +45,6 @@ describe('noteReducer', () => {
     expect(newState).toContainEqual({
       ...state[1],
       important: true,
-    })
-  })
-})
+    });
+  });
+});
