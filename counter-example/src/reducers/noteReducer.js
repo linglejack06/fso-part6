@@ -1,4 +1,4 @@
-const noteReducer = (state, action) => {
+const noteReducer = (state = [], action) => {
   switch (action.type) {
     case 'NEW_NOTE': {
       return [...state, action.payload];

@@ -33,5 +33,6 @@ module.exports = {
     'react',
   ],
   rules: {
+    'default-param-last': 'off',
   },
 };
