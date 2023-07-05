@@ -13,9 +13,13 @@ const asObject = (anecdote) => ({
   votes: 0,
 });
 export const initialState = anecdotes.map((anec) => asObject(anec));
+export const incrementVote = (id) => ({
+  type: 'INCREMENT_VOTE',
+  payload: { id }
+})
 const anecdotesReducer = (state = initialState, action) => {
   switch(action.type) {
-    case 'VOTE': {
+    case 'INCREMENT_VOTE': {
       const editedAnec = state.find((anec) => anec.id === action.payload.id);
       const newAnec = {
         ...editedAnec,
