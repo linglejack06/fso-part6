@@ -11,6 +11,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         good: state.good + 1
       };
+    default:
+      return state;
   }
 }
 
