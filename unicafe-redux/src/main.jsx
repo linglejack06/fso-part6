@@ -10,16 +10,25 @@ function App () {
       type: 'GOOD'
     })
   }
+  const ok = () => {
+    store.dispatch({ type: 'OK' });
+  };
+  const bad = () => {
+    store.dispatch({type: 'BAD' });
+  };
+  const reset = () => {
+    store.dispatch({ type: 'ZERO' });
+  }
 
   return (
     <div>
       <button onClick={good}>Good</button>
-      <button>Ok</button>
-      <button>Bad</button>
-      <button>Reset Status</button>
+      <button onClick={ok}>Ok</button>
+      <button onClick={bad}>Bad</button>
+      <button onClick={reset}>Reset Status</button>
       <div>Good: {store.getState().good}</div>
-      <div>Ok: </div>
-      <div>Bad: </div>
+      <div>Ok: {store.getState().ok}</div>
+      <div>Bad: {store.getState().bad}</div>
     </div>
   )
 }
@@ -30,5 +39,5 @@ const renderApp = () => {
   root.render(<App />);
 }
 renderApp();
-store.subcribe(renderApp);
+store.subscribe(renderApp);
 
