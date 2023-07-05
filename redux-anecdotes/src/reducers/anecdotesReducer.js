@@ -12,7 +12,20 @@ const asObject = (anecdote) => ({
   id: generateId(),
   votes: 0,
 });
-const initialState = anecdotes.map((anec) => asObject(anec));
+export const initialState = anecdotes.map((anec) => asObject(anec));
 const anecdotesReducer = (state = initialState, action) => {
-  
+  switch(action.type) {
+    case 'VOTE': {
+      const editedAnec = state.find((anec) => anec.id === action.payload.id);
+      const newAnec = {
+        ...editedAnec,
+        votes: editedAnec.votes + 1,
+      };
+      return state.map((anec) => anec.id === action.payload.id ? newAnec : anec);
+    }
+    default:
+      return state;
+  }
 }
+
+export default anecdotesReducer
