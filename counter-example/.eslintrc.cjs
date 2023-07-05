@@ -34,5 +34,7 @@ module.exports = {
   ],
   rules: {
     'default-param-last': 'off',
+    'react/prop-types': 'off',
+    'react/button-has-type': 'off',
   },
 };
