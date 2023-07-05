@@ -26,28 +26,30 @@ store.dispatch({
   },
 });
 const generateId = () => Math.floor(Math.random() * 10000000000);
+const createNote = (content) => ({
+  type: 'NEW_NOTE',
+  payload: {
+    content,
+    important: false,
+    id: generateId(),
+  },
+});
+const toggleImportanceOf = (id) => ({
+  type: 'TOGGLE_IMPORTANCE',
+  payload: {
+    id,
+  },
+});
 
 function App() {
   const addNote = (e) => {
     e.preventDefault();
     const content = e.target.note.value;
     e.target.note.value = '';
-    store.dispatch({
-      type: 'NEW_NOTE',
-      payload: {
-        content,
-        important: false,
-        id: generateId(),
-      },
-    });
+    store.dispatch(createNote(content));
   };
   const toggleImportance = (id) => {
-    store.dispatch({
-      type: 'TOGGLE_IMPORTANCE',
-      payload: {
-        id,
-      },
-    });
+    store.dispatch(toggleImportanceOf(id));
   };
   return (
     <>
