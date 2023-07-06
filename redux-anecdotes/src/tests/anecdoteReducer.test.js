@@ -17,4 +17,12 @@ describe('Anecdotes reducer', () => {
       votes: 1,
     })
   })
+  it ('adds anecdote', () => {
+    const state = initialState;
+    deepFreeze(state);
+    const newAnecdote = 'tests are the best';
+    const newState = anecdotesReducer(state, addAnecdote(newAnecdote));
+    const contents = newState.map((anec) => anec.content);
+    expect(contents).toContain('tests are the best');
+  })
 })

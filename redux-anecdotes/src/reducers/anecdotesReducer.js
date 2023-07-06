@@ -17,6 +17,14 @@ export const incrementVote = (id) => ({
   type: 'INCREMENT_VOTE',
   payload: { id }
 })
+export const addAnecdote = (content) => ({
+  type: 'NEW_ANECDOTE',
+  payload: {
+    content,
+    votes: 0,
+    id: generateId(),
+  }
+});
 const anecdotesReducer = (state = initialState, action) => {
   switch(action.type) {
     case 'INCREMENT_VOTE': {
@@ -27,6 +35,8 @@ const anecdotesReducer = (state = initialState, action) => {
       };
       return state.map((anec) => anec.id === action.payload.id ? newAnec : anec);
     }
+    case 'NEW_ANECDOTE':
+      return [...state, action.payload];
     default:
       return state;
   }
