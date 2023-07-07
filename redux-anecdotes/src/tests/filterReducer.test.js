@@ -7,5 +7,11 @@ describe('Filter Reducer', () => {
     deepFreeze(state);
     const newState = filterReducer(undefined, { type: 'NONE' });
     expect(newState).toEqual(initialState);
+  });
+  it('updates filter', () => {
+    const state = initialState;
+    deepFreeze(state);
+    const newState = filterReducer(state, updateFilter('The'));
+    expect(newState).toEqual('The');
   })
 })
