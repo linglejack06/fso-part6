@@ -1,3 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { createSlice } from '@reduxjs/toolkit';
+
 const initialState = [
   {
     content: 'reducer defines how redux store works',
@@ -11,37 +14,29 @@ const initialState = [
   },
 ];
 const generateId = () => Math.floor(Math.random() * 10000000000);
-export const createNote = (content) => ({
-  type: 'NEW_NOTE',
-  payload: {
-    content,
-    important: false,
-    id: generateId(),
-  },
-});
-export const toggleImportanceOf = (id) => ({
-  type: 'TOGGLE_IMPORTANCE',
-  payload: {
-    id,
-  },
-});
-const noteReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'NEW_NOTE': {
-      return [...state, action.payload];
-    }
-    case 'TOGGLE_IMPORTANCE': {
-      const { id } = action.payload;
+const noteSlice = createSlice({
+  name: 'notes',
+  initialState,
+  reducers: {
+    createNote(state, action) {
+      const content = action.payload;
+      state.push({
+        content,
+        important: false,
+        id: generateId(),
+      });
+    },
+    toggleImportanceOf(state, action) {
+      const id = action.payload;
       const noteToChange = state.find((note) => note.id === id);
       const changedNote = {
         ...noteToChange,
         important: !noteToChange.important,
       };
       return state.map((note) => (note.id !== id ? note : changedNote));
-    }
-    default:
-      return state;
-  }
-};
+    },
+  },
+});
 
-export default noteReducer;
+export const { createNote, toggleImportanceOf } = noteSlice.actions;
+export default noteSlice.reducer;
