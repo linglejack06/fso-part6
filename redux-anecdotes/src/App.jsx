@@ -1,4 +1,4 @@
-import Anecdotes from './components/Anecdotes';
+import Anecdotes from './components/anecdotes';
 import AnecdoteForm from './components/AnecdoteForm';
 
 function App() {
