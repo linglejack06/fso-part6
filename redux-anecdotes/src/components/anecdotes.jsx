@@ -13,7 +13,13 @@ function Anecdote ({ anecdote, handleClick }) {
 }
 function Anecdotes () {
   const dispatch = useDispatch();
-  const anecdotes = useSelector((state) => state.sort((a, b) => b.votes - a.votes));
+  const anecdotes = useSelector((state) => {
+    if (state.filter !== '') {
+      const filteredAnecdotes = state.anecdotes.filter((anecdote) => anecdote.content.toLowerCase().includes(state.filter.toLowerCase()));
+      return filteredAnecdotes.sort((a, b) => b.votes - a.votes);
+    }
+    return state.anecdotes.sort((a, b) => b.votes - a.votes)
+  });
   const handleVote = (id) => dispatch(incrementVote(id));
   return (
     <ul>
