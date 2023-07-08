@@ -1,18 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { createSlice } from '@reduxjs/toolkit';
 
-const generateId = () => Math.floor(Math.random() * 10000000000);
 const noteSlice = createSlice({
   name: 'notes',
   initialState: [],
   reducers: {
     createNote(state, action) {
-      const content = action.payload;
-      state.push({
-        content,
-        important: false,
-        id: generateId(),
-      });
+      state.push(action.payload);
     },
     toggleImportanceOf(state, action) {
       const id = action.payload;
