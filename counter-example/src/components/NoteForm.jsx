@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { createNote } from '../reducers/noteReducer';
-import noteService from '../services/notes';
 
 function NoteForm() {
   const dispatch = useDispatch();
@@ -10,8 +9,7 @@ function NoteForm() {
     e.preventDefault();
     const content = e.target.note.value;
     e.target.note.value = '';
-    const newNote = await noteService.createNew(content);
-    dispatch(createNote(newNote));
+    dispatch(createNote(content));
   };
   return (
     <form onSubmit={addNote}>
