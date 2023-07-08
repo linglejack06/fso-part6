@@ -13,7 +13,6 @@ const store = configureStore({
     filter: filterReducer,
   },
 });
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <App />
