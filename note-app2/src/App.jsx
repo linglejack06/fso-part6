@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import { getNotes } from './requests';
 
 function App() {
   const addNote = async (e) => {
@@ -13,7 +13,7 @@ function App() {
   };
   const result = useQuery(
     'notes',
-    () => axios.get('http://localhost:3000/notes').then((res) => res.data),
+    getNotes,
   )
   console.log(result);
   if(result.isLoading) {
