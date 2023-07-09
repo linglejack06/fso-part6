@@ -1,3 +1,5 @@
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
 function App() {
   const addNote = async (e) => {
@@ -7,9 +9,17 @@ function App() {
     console.log(content);
   };
   const toggleImportance = (note) => {
-    console.log('toggle importance of, note.id');
+    console.log('toggle importance of', note.id);
   };
-  const notes = [];
+  const result = useQuery(
+    'notes',
+    () => axios.get('http://localhost:3000/notes').then((res) => res.data),
+  )
+  console.log(result);
+  if(result.isLoading) {
+    return <div>Loading data...</div>
+  }
+  const notes = result.data;
   return (
     <>
     <h2>Notes App Rewrite</h2>
