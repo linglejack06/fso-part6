@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { incrementVote } from '../reducers/anecdotesReducer';
+import { addVote } from '../reducers/anecdotesReducer';
 import { setMessage, removeMessage } from '../reducers/messageReducer';
 
 function Anecdote ({ anecdote, handleClick }) {
@@ -21,7 +21,7 @@ function Anecdotes () {
   const handleVote = (id) => {
     const editAnec = anecdotes.find((anec) => anec.id === id);
     dispatch(setMessage(`Added vote to ${editAnec.content}`));
-    dispatch(incrementVote(id));
+    dispatch(addVote(id));
     setTimeout(() => {
       dispatch(removeMessage())
     }, 5000);

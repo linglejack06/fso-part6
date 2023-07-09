@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(initializeAnecdotes);
+    dispatch(initializeAnecdotes());
   }, [dispatch])
   return (
     <>
