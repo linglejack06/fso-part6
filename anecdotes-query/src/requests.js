@@ -11,3 +11,7 @@ export const createAnecdote = async (content) => {
   });
   return response.data;
 }
+export const updateAnecdote = async(anecdote) => {
+  const response = await axios.put(`http://localhost:3000/anecdotes/${anecdote.id}`, anecdote);
+  return response.data;
+}
