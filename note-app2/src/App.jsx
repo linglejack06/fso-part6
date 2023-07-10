@@ -23,9 +23,7 @@ function App() {
     newNoteMutation.mutate({ content, important: true });
   };
   const toggleImportance = async (note) => {
-    console.log(note);
     updatedNoteMutation.mutate({...note, important: !note.important});
-    console.log(queryClient.getQueryData('notes'));
   };
   const result = useQuery(
     'notes',
@@ -34,6 +32,7 @@ function App() {
   if(result.isLoading) {
     return <div>Loading data...</div>
   }
+  console.log(result);
   const notes = result.data;
   return (
     <>
