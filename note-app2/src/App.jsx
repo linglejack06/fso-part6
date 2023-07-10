@@ -1,27 +1,36 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import { getNotes, createNote } from './requests';
+import { getNotes, createNote, updateNote } from './requests';
 
 function App() {
   const queryClient = useQueryClient();
   const newNoteMutation = useMutation(createNote, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('notes');
+    onSuccess: (newNote) => {
+      const notes = queryClient.getQueryData('notes');
+      queryClient.setQueryData('notes', notes.concat(newNote));
     }
   });
+  const updatedNoteMutation = useMutation(updateNote, {
+    onSuccess: (updatedNote) => {
+      const notes = queryClient.getQueryData('notes');
+      const updatedNotes = notes.map((note) => note.id === updatedNote.id ? updatedNote : note);
+      queryClient.setQueryData('notes', updatedNotes);
+    }
+  })
   const addNote = async (e) => {
     e.preventDefault();
     const content = e.target.note.value;
     e.target.note.value = '';
     newNoteMutation.mutate({ content, important: true });
   };
-  const toggleImportance = (note) => {
-    console.log('toggle importance of', note.id);
+  const toggleImportance = async (note) => {
+    console.log(note);
+    updatedNoteMutation.mutate({...note, important: !note.important});
+    console.log(queryClient.getQueryData('notes'));
   };
   const result = useQuery(
     'notes',
     getNotes,
   )
-  console.log(result);
   if(result.isLoading) {
     return <div>Loading data...</div>
   }
@@ -34,9 +43,10 @@ function App() {
       <button type="submit">Add</button>
     </form>
     {notes.map((note) => (
-      <li key={note.id} onClick={() => toggleImportance(note)}>
+      <li key={note.id}>
         {note.content}
         <strong> {note.important ? 'important' : ''}</strong>
+        <button onClick={() => toggleImportance(note)}>Change Importance</button>
       </li>
     ))}
     </>
