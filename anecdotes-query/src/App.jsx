@@ -1,16 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getAnecdotes, createAnecdote } from './requests.js';
+import { useQuery } from 'react-query';
+import { getAnecdotes } from './requests.js';
 import AnecdoteForm from './components/AnecdoteForm';
 import Anecdote from './components/Anecdote';
 
 function App() {
-  const queryClient = useQueryClient();
-  const newAnecdoteMutation = useMutation(createAnecdote, {
-    onSuccess: (newAnec) => {
-      const anecdotes = queryClient.getQueryData('anecdotes');
-      queryClient.setQueryData('anecdotes', anecdotes.concat(newAnec));
-    }
-  })
   const result = useQuery('anecdotes', getAnecdotes);
   if(result.isLoading) {
     return (
@@ -28,9 +21,9 @@ function App() {
   const anecdotes = result.data;
   return (
     <>
-      <AnecdoteForm />
+      <AnecdoteForm/>
       {anecdotes.map((anecdote) => (
-        <Anecdote key={anecdote.id} anecdote={anecdote}/>
+        <Anecdote key={anecdote.id} anecdote={anecdote}  />
       ))}
     </>
   )
